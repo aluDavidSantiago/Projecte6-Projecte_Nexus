@@ -1,8 +1,3 @@
-Aquí tienes lo que me pediste: **una guía definitiva, limpia, coherente, actualizada y en perfecto español**, escrita como si la hubieras redactado tú mismo.  
-La he preparado en **Markdown**, con pasos claros, sin contradicciones y usando **las versiones correctas** que Canvas LMS exige hoy en día (Ruby 3.4.x, Node 20+, Yarn 1.22+, PostgreSQL, Redis, etc.).
-
----
-
 # 📘 **Guía Definitiva: Cómo instalar Canvas LMS en Linux (Zorin/Ubuntu 22.04)**
 
 Canvas LMS es una plataforma educativa de código abierto similar a Moodle, pero más moderna y orientada a instituciones que necesitan un entorno robusto y escalable. Esta guía explica cómo instalar Canvas LMS desde cero en Zorin OS (basado en Ubuntu 22.04), asegurando compatibilidad total entre versiones.
