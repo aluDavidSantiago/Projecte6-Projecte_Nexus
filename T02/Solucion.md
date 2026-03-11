@@ -9,24 +9,6 @@
 
 ***
 
-##  Índice
-
-1.  \#-objetivo-de-la-práctica
-2.  \#-arquitectura-y-máquinas
-3.  \#-redes-y-adaptadores-virtualbox
-4.  \#-fase-1--instalación-y-configuración-base
-5.  \#-fase-2--virtualhosts-multidominio
-6.  \#-fase-3--error-404-personalizado
-7.  \#-fase-4--sslhttps-con-san
-8.  \#-fase-5--optimización-http2
-9.  \#-pruebas-con-curl-y-navegador
-10. \#-checklist-de-capturas-obligatorias
-11. \#-solución-de-problemas-comunes
-12. \#-extra--cliente-windows-en-red-hostonly
-13. \#-apéndice--archivos-de-configuración-finales
-
-***
-
 ## Objetivo de la práctica
 
 Configurar en **una sola máquina Ubuntu Server** un **servidor Apache 2.4** con:
@@ -498,3 +480,4 @@ curl.exe -I -k https://academia10.test
 *   **SSL** con **SAN** y **redirección** a HTTPS.
 *   **404 personalizado** funcionando también en HTTPS.
 *   **EXTRA** validado desde cliente Windows en red Host‑Only.
+
