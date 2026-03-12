@@ -9,6 +9,24 @@
 
 ***
 
+##  Índice
+
+1.  \#-objetivo-de-la-práctica
+2.  \#-arquitectura-y-máquinas
+3.  \#-redes-y-adaptadores-virtualbox
+4.  \#-fase-1--instalación-y-configuración-base
+5.  \#-fase-2--virtualhosts-multidominio
+6.  \#-fase-3--error-404-personalizado
+7.  \#-fase-4--sslhttps-con-san
+8.  \#-fase-5--optimización-http2
+9.  \#-pruebas-con-curl-y-navegador
+10. \#-checklist-de-capturas-obligatorias
+11. \#-solución-de-problemas-comunes
+12. \#-extra--cliente-windows-en-red-hostonly
+13. \#-apéndice--archivos-de-configuración-finales
+
+***
+
 ## Objetivo de la práctica
 
 Configurar en **una sola máquina Ubuntu Server** un **servidor Apache 2.4** con:
@@ -292,7 +310,7 @@ sudo apachectl configtest && sudo systemctl reload apache2
 ```
 sudo a2enmod http2 && sudo systemctl reload apache2
 ```
-<img src="IMG/28.png" alt="28" width="900" height="auto">
+<img src="IMG/29.png" alt="28" width="900" height="auto">
 
 Añadir `Protocols` a ambos **VirtualHost HTTPS**:
 
@@ -302,12 +320,18 @@ Añadir `Protocols` a ambos **VirtualHost HTTPS**:
 ```
 sudo nano /etc/apache2/sites-available/projectenexus10-ssl.conf
 ```
+
 ```
 sudo nano /etc/apache2/sites-available/academia10-ssl.conf
 ```
+
+<img src="IMG/30.png" alt="30" width="900" height="auto">
+
 ```
-sudo apachectl configtest && sudo systemctl reload apache2
+sudo apachectl configtest 
 ```
+
+<img src="IMG/31.png" alt="31" width="900" height="auto">
 
 ***
 
@@ -315,24 +339,13 @@ sudo apachectl configtest && sudo systemctl reload apache2
 
 ### HTTPS en ambos dominios (respuesta 200)
 
-```bash
+```
 curl -I --http2 -k https://projectenexus10.test
 curl -I --http2 -k https://academia10.test
 ```
 
-### 404 personalizado en HTTPS
+<img src="IMG/32.png" alt="32" width="900" height="auto">
 
-```bash
-curl -i --http2 -k https://projectenexus10.test/no-existe
-```
-
-### Navegador (Firefox/Chrome)
-
-*   Entrar a `https://projectenexus10.test`
-*   Abrir **DevTools → Network → columna Protocol** → debe mostrar **h2**
-*   Probar `https://projectenexus10.test/no-existe` → **404 personalizado**
-
-***
 
 
 ***
@@ -357,15 +370,16 @@ curl -i --http2 -k https://projectenexus10.test/no-existe
 
 ***
 
-##  EXTRA — Cliente Windows en red Host‑Only
+## Cliente Windows en red Host‑Only
 
 **Objetivo:** Simular un entorno real donde un cliente Windows accede al servidor Ubuntu en red privada.
 
 ### 1) Ver conectividad
 
-```powershell
+```
 ping 192.168.56.117
 ```
+<img src="IMG/33.png" alt="33" width="900" height="auto">
 
 ### 2) Hosts de Windows (como admin)
 
@@ -375,18 +389,22 @@ Contenido a añadir:
     192.168.56.117    projectenexus10.test
     192.168.56.117    academia10.test
 
-### 3) Probar en PowerShell
+<img src="IMG/34.png" alt="34" width="900" height="auto">
+<img src="IMG/35.png" alt="35" width="900" height="auto">
 
-```powershell
-curl.exe -I -k https://projectenexus10.test
-curl.exe -I -k https://academia10.test
-```
 
-### 4) Probar en navegador
+### 3) Probar en navegador
 
 *   `https://projectenexus10.test`
+
+<img src="IMG/37.png" alt="37" width="900" height="auto">
+
 *   `https://projectenexus10.test/no-existe` → **404 personalizado**
-*   DevTools → Network → **Protocol = h2**
+
+<img src="IMG/38.png" alt="38" width="900" height="auto">
+
+*   DevTools → Network 
+
 
 > **Texto para la guía:**\
 > “En esta extensión se configuró una red Host‑Only entre dos VMs (Ubuntu Server y Windows 11). El cliente Windows resolvió los dominios locales mediante su archivo `hosts` y accedió por HTTPS/HTTP2 al servidor, validando la redirección y el 404 personalizado. Esta extensión simula un entorno real cliente‑servidor para pruebas de infraestructura.”
@@ -480,4 +498,3 @@ curl.exe -I -k https://academia10.test
 *   **SSL** con **SAN** y **redirección** a HTTPS.
 *   **404 personalizado** funcionando también en HTTPS.
 *   **EXTRA** validado desde cliente Windows en red Host‑Only.
-
