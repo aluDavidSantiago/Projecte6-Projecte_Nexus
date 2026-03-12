@@ -241,7 +241,7 @@ sudo nano /tmp/openssl-san.conf
 ```
 sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/apache-selfsigned.key -out /etc/ssl/certs/apache-selfsigned.crt -config /tmp/openssl-san.conf
 ```
-<img src="IMG/20.png" alt="18" width="900" height="auto">
+<img src="IMG/20.png" alt="18" width="600" height="auto">
 
 ### 4) VirtualHost HTTPS — `projectenexus10.test`
 
@@ -249,14 +249,14 @@ sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/privat
 sudo nano /etc/apache2/sites-available/projectenexus10-ssl.conf 
 ```
 
-<img src="IMG/21.png" alt="21" width="900" height="auto">
+<img src="IMG/21.png" alt="21" width="600" height="auto">
 
 ### 5) VirtualHost HTTPS — `academia10.test`
 
 ```
 sudo nano /etc/apache2/sites-available/academia10-ssl.conf
 ```
-<img src="IMG/22.png" alt="22" width="900" height="auto">
+<img src="IMG/22.png" alt="22" width="700" height="auto">
 
 
 ### 6) Activar sitios HTTPS y recargar
@@ -264,24 +264,24 @@ sudo nano /etc/apache2/sites-available/academia10-ssl.conf
 ```
 sudo a2ensite projectenexus10-ssl.conf academia10-ssl.conf && sudo apachectl configtest && sudo systemctl reload apache2
 ```
-<img src="IMG/24.png" alt="24" width="900" height="auto">
+<img src="IMG/24.png" alt="24" width="700" height="auto">
 
 ### 7) Redirección **HTTP → HTTPS** (en ambos sitios HTTP)
 
 ```
 sudo nano /etc/apache2/sites-available/projectenexus10.test.conf
 ```
-<img src="IMG/25.png" alt="25" width="900" height="auto">
+<img src="IMG/25.png" alt="25" width="600" height="auto">
 
 ```
 sudo nano /etc/apache2/sites-available/academia10.test.conf
 ```
-<img src="IMG/26.png" alt="26" width="900" height="auto">
+<img src="IMG/26.png" alt="26" width="600" height="auto">
 
 ```
 sudo apachectl configtest && sudo systemctl reload apache2
 ```
-<img src="IMG/27.png" alt="27" width="900" height="auto">
+<img src="IMG/27.png" alt="27" width="700" height="auto">
 
 ***
 
@@ -292,7 +292,7 @@ sudo apachectl configtest && sudo systemctl reload apache2
 ```
 sudo a2enmod http2 && sudo systemctl reload apache2
 ```
-<img src="IMG/29.png" alt="28" width="900" height="auto">
+<img src="IMG/29.png" alt="28" width="600" height="auto">
 
 Añadir `Protocols` a ambos **VirtualHost HTTPS**:
 
@@ -307,13 +307,13 @@ sudo nano /etc/apache2/sites-available/projectenexus10-ssl.conf
 sudo nano /etc/apache2/sites-available/academia10-ssl.conf
 ```
 
-<img src="IMG/30.png" alt="30" width="900" height="auto">
+<img src="IMG/30.png" alt="30" width="700" height="auto">
 
 ```
 sudo apachectl configtest 
 ```
 
-<img src="IMG/31.png" alt="31" width="900" height="auto">
+<img src="IMG/31.png" alt="31" width="600" height="auto">
 
 ***
 
@@ -326,7 +326,7 @@ curl -I --http2 -k https://projectenexus10.test
 curl -I --http2 -k https://academia10.test
 ```
 
-<img src="IMG/32.png" alt="32" width="900" height="auto">
+<img src="IMG/32.png" alt="32" width="600" height="auto">
 
 
 
@@ -361,7 +361,7 @@ curl -I --http2 -k https://academia10.test
 ```
 ping 192.168.56.117
 ```
-<img src="IMG/33.png" alt="33" width="900" height="auto">
+<img src="IMG/33.png" alt="33" width="700" height="auto">
 
 ### 2) Hosts de Windows (como admin)
 
@@ -371,19 +371,19 @@ Contenido a añadir:
     192.168.56.117    projectenexus10.test
     192.168.56.117    academia10.test
 
-<img src="IMG/34.png" alt="34" width="900" height="auto">
-<img src="IMG/35.png" alt="35" width="900" height="auto">
+<img src="IMG/34.png" alt="34" width="600" height="auto">
+<img src="IMG/35.png" alt="35" width="600" height="auto">
 
 
 ### 3) Probar en navegador
 
 *   `https://projectenexus10.test`
 
-<img src="IMG/37.png" alt="37" width="900" height="auto">
+<img src="IMG/37.png" alt="37" width="700" height="auto">
 
 *   `https://projectenexus10.test/no-existe` → **404 personalizado**
 
-<img src="IMG/38.png" alt="38" width="900" height="auto">
+<img src="IMG/38.png" alt="38" width="700" height="auto">
 
 *   DevTools → Network 
 
@@ -399,14 +399,15 @@ Contenido a añadir:
 
 **`/etc/apache2/sites-available/projectenexus10-ssl.conf` (HTTPS)**
 
-<img src="IMG/39.png" alt="38" width="900" height="auto">
+<img src="IMG/39.png" alt="38" width="700" height="auto">
 
 Para perzonalizar un poco
 
-<img src="IMG/40.png" alt="40" width="900" height="auto">
+<img src="IMG/40.png" alt="40" width="700" height="auto">
 
 ***
 
 ##  Cierre
+
 
 
