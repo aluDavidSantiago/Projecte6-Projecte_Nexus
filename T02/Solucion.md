@@ -1,4 +1,4 @@
-**T02: Missió Apache** (con extra)
+**T02: Missió Apache**
 
 > **“Esta práctica no consiste en crear una página web, sino en configurar un servidor web profesional completo con Apache, multisitio, HTTPS, certificados SSL, error personalizado y soporte HTTP/2.”**
 
@@ -6,24 +6,6 @@
 **Entorno:** Ubuntu Server (VM) + VirtualBox\
 **Estado:** Completada con éxito y verificada con pruebas y capturas\
 **Extra incluido:** Acceso desde cliente Windows en red **Host‑Only**
-
-***
-
-##  Índice
-
-1.  \#-objetivo-de-la-práctica
-2.  \#-arquitectura-y-máquinas
-3.  \#-redes-y-adaptadores-virtualbox
-4.  \#-fase-1--instalación-y-configuración-base
-5.  \#-fase-2--virtualhosts-multidominio
-6.  \#-fase-3--error-404-personalizado
-7.  \#-fase-4--sslhttps-con-san
-8.  \#-fase-5--optimización-http2
-9.  \#-pruebas-con-curl-y-navegador
-10. \#-checklist-de-capturas-obligatorias
-11. \#-solución-de-problemas-comunes
-12. \#-extra--cliente-windows-en-red-hostonly
-13. \#-apéndice--archivos-de-configuración-finales
 
 ***
 
@@ -406,95 +388,25 @@ Contenido a añadir:
 *   DevTools → Network 
 
 
-> **Texto para la guía:**\
+>
 > “En esta extensión se configuró una red Host‑Only entre dos VMs (Ubuntu Server y Windows 11). El cliente Windows resolvió los dominios locales mediante su archivo `hosts` y accedió por HTTPS/HTTP2 al servidor, validando la redirección y el 404 personalizado. Esta extensión simula un entorno real cliente‑servidor para pruebas de infraestructura.”
 
 ***
 
-## 📎 Apéndice — Archivos de configuración finales
+## Apéndice — Archivos de configuración finales
 
-**`/etc/apache2/sites-available/projectenexus10.test.conf` (HTTP)**
 
-```
-<VirtualHost *:80>
-    ServerName projectenexus10.test
-    DocumentRoot /var/www/projectenexus10.test/public_html
-    <Directory /var/www/projectenexus10.test/public_html>
-        AllowOverride All
-        Require all granted
-    </Directory>
-    ErrorDocument 404 /errors/404.html
-    Redirect "/" "https://projectenexus10.test/"
-    ErrorLog ${APACHE_LOG_DIR}/projectenexus10_error.log
-    CustomLog ${APACHE_LOG_DIR}/projectenexus10_access.log combined
-</VirtualHost>
-```
-
-**`/etc/apache2/sites-available/academia10.test.conf` (HTTP)**
-
-```
-<VirtualHost *:80>
-    ServerName academia10.test
-    DocumentRoot /var/www/academia10.test/public_html
-    <Directory /var/www/academia10.test/public_html>
-        AllowOverride All
-        Require all granted
-    </Directory>
-    Redirect "/" "https://academia10.test/"
-    ErrorLog ${APACHE_LOG_DIR}/academia10_error.log
-    CustomLog ${APACHE_LOG_DIR}/academia10_access.log combined
-</VirtualHost>
-```
 
 **`/etc/apache2/sites-available/projectenexus10-ssl.conf` (HTTPS)**
 
-```
-<IfModule mod_ssl.c>
-<VirtualHost *:443>
-    ServerName projectenexus10.test
-    DocumentRoot /var/www/projectenexus10.test/public_html
-    Protocols h2 h2c http/1.1
-    <Directory /var/www/projectenexus10.test/public_html>
-        AllowOverride All
-        Require all granted
-    </Directory>
-    ErrorDocument 404 /errors/404.html
-    SSLEngine on
-    SSLCertificateFile /etc/ssl/certs/apache-selfsigned.crt
-    SSLCertificateKeyFile /etc/ssl/private/apache-selfsigned.key
-    ErrorLog ${APACHE_LOG_DIR}/projectenexus10_ssl_error.log
-    CustomLog ${APACHE_LOG_DIR}/projectenexus10_ssl_access.log combined
-</VirtualHost>
-</IfModule>
-```
+<img src="IMG/39.png" alt="38" width="900" height="auto">
 
-**`/etc/apache2/sites-available/academia10-ssl.conf` (HTTPS)**
+Para perzonalizar un poco
 
-```
-<IfModule mod_ssl.c>
-<VirtualHost *:443>
-    ServerName academia10.test
-    DocumentRoot /var/www/academia10.test/public_html
-    Protocols h2 h2c http/1.1
-    <Directory /var/www/academia10.test/public_html>
-        AllowOverride All
-        Require all granted
-    </Directory>
-    SSLEngine on
-    SSLCertificateFile /etc/ssl/certs/apache-selfsigned.crt
-    SSLCertificateKeyFile /etc/ssl/private/apache-selfsigned.key
-    ErrorLog ${APACHE_LOG_DIR}/academia10_ssl_error.log
-    CustomLog ${APACHE_LOG_DIR}/academia10_ssl_access.log combined
-</VirtualHost>
-</IfModule>
-```
+<img src="IMG/40.png" alt="40" width="900" height="auto">
 
 ***
 
 ##  Cierre
 
 
-*   **HTTP/2** verificado con `curl` (cabecera `HTTP/2 200`).
-*   **SSL** con **SAN** y **redirección** a HTTPS.
-*   **404 personalizado** funcionando también en HTTPS.
-*   **EXTRA** validado desde cliente Windows en red Host‑Only.
