@@ -1,58 +1,62 @@
-# projecte Nexus
+# **T03: Missió Nginx — Migració d'Alt Rendiment i Arquitectura Lleugera**
 
-## Desplegament integral d'infraestructura segura per a entorns d'e-learning
+## **Breu descripció**
 
-![Logo del projecte Nexus](pics/logotip.png)
+### **Introducció**
 
-## Autor
+La vostra implementació amb Apache ha estat un èxit i el client està satisfet. No obstant això, a la reunió d'estratègia tècnica d'ahir, la directiva va plantejar un nou repte: l'escalabilitat. Es preveu que Projecte Nexus rebi un pic de visites molt elevat durant la propera campanya de presentació.
 
-Nom: [Escriu el teu nom aquí]
+Per aquest motiu, hem decidit obrir una línia de recerca i desenvolupament (R+D) per provar Nginx. Aquest servidor és conegut per la seva arquitectura orientada a esdeveniments, capaç de gestionar milers de connexions concurrents amb un consum de memòria molt inferior.
 
-Formant grups de treball: [Escriu els noms dels membres del grup aquí]
+L'objectiu d'aquesta activitat és replicar exactament la infraestructura que vam muntar amb Apache, però utilitzant Nginx. Això ens permetrà comparar rendiment i tenir una alternativa d'altes prestacions al nostre catàleg de serveis.
 
-## Descripció del projecte
+> **Nota important:** Recordeu que dos serveis no poden escoltar pel mateix port (80/443) simultàniament a la mateixa IP. Haureu d'aturar Apache abans de començar.
 
-Projecte Nexus vol posar en marxa una plataforma de formació E-learning pròpia, orientada a cursos per a tècnics informàtics i demana que aquesta plataforma es construeixi sobre una infraestructura de servidor eficient, sostenible i amb costos controlats.
+---
 
-Per aquest motiu, Projecte Nexus encarrega al vostre equip tècnic (vosaltres) l’estudi, desplegament i presentació d’una solució completa de servidor, adequada a les necessitats del client i al context real d’una petita o mitjana organització.
+## **Descripció de l'activitat**
 
-Al següent enllaç pots trobar l'enunciat complet del projecte [accés al projecte Nexus]()
+L'activitat consisteix en la migració de la infraestructura web a un entorn Nginx sobre Ubuntu Server. Heu de documentar tot el procés en l'informe tècnic.
 
-## Instruccions (per eliminar abans de lliurar el projecte)
+### **1. Preparació de l'Entorn i Instal·lació**
 
-Un cop teniu la vostra còpia d'aquest repositori, heu de seguir els passos següents:
+- Atureu i deshabiliteu el servei Apache2 per alliberar els ports 80 i 443.  
+- Instal·leu el servidor web Nginx.  
+- Verifiqueu que el servei està actiu i que la pàgina de benvinguda de Nginx es mostra correctament al navegador.
 
-1. **Editar aquest fitxer README.md**
-    - Incloure el vostre nom i els noms dels membres del grup.
+### **2. Configuració de Server Blocks (Multidomini)**
 
-1. **Organització del repositori:**
-   - Cada activitat ha d'estar dins d'una carpeta titulada `Tasca01`, `Tasca02`, etc.
-   - Dins de cada carpeta de tasca, heu d'incloure un arxiu `README.md` amb la descripció detallada de l'activitat realitzada.
+- Aprofiteu l'estructura de carpetes ja creada (`/var/www/nexus` i `/var/www/academia`).  
+- Si cal, ajusteu els permisos (propietari `www-data`).  
+- Configureu dos Server Blocks (l'equivalent a VirtualHosts a Nginx) a `/etc/nginx/sites-available/`.  
+- Creeu els enllaços simbòlics a `sites-enabled/` per activar les configuracions.  
+- Verifiqueu la sintaxis amb `nginx -t` abans de reiniciar el servei.
 
-```text
+### **3. Personalització d'Errors**
 
-projecte6/
-├── README.md (aquest arxiu)
-├── Tasca01/
-│   └── README.md
-├── Tasca02/
-│   └── README.md
-├── Tasca03/
-│   └── README.md
-└── ...
-```
+- Configureu la directiva `error_page 404` dins del bloc de servidor corresponent.  
+- Assegureu-vos que, quan es demani un fitxer inexistent, es mostri la pàgina d'error personalitzada que vau crear anteriorment.
 
-1. **Procediment de treball:**
-   - A mesura que completeu cada tasca, actualitzeu el vostre repositori local amb els canvis.
-   - Cada dia, abans de finalitzar la jornada, pugeu els canvis al  repositori remot a GitHub.
+### **4. Seguretat i Certificats (HTTPS)**
 
-1. **Esborrar secció instruccions:**
-    - Un cop hàgiu completat la creació de les carpetes i actualitzat el vostre README.md, ja podeu eliminar aquesta secció d'instruccions per a una millor presentació del vostre projecte.
+- Reutilitzeu els certificats SSL generats en l'activitat anterior (o genereu-ne de nous si cal).  
+- Configureu el Server Block per escoltar al port 443 i indiqueu les rutes del certificat (`ssl_certificate`) i la clau privada (`ssl_certificate_key`).  
+- **Redirecció forçada:** Configureu un bloc de servidor escoltant al port 80 que retorni un codi **301 (Permanent Redirect)** cap a la versió HTTPS del domini `projectenexus.test` o `academia.test`.
 
-## Guies Git i GitHub
+### **5. Optimització amb HTTP/2**
 
-- [Introducció a Git i GitHub](https://github.com/SMX2n/IntroGitHub)
-- [Control de versions: Git](https://github.com/SMX2n/ControlVersions)
-- [Guia GitHub Classroom](https://github.com/SMX2n/guia-github-classroom)
+- Habiliteu el protocol HTTP/2 afegint el paràmetre `http2` a la directiva `listen` del bloc SSL.  
+- Comproveu novament amb les eines de desenvolupador del navegador que el contingut s'està servint amb aquest protocol.
 
-Bona sort! 🚀
+---
+
+## **Què cal lliurar**
+
+Redacteu una memòria tècnica de la instal·lació i configuració, incloent les proves de funcionament. És important que aquesta memòria tècnica contingui les explicacions i no només captures de pantalla, ja que els vostres clients no són experts i necessiten poder entendre el que heu fet.
+
+---
+
+## **Material de suport**
+
+**UD5.AA2. El servidor Nginx.** Disponible al Moodle del mòdul de Serveis de Xarxa.
+
