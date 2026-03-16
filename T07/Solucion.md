@@ -36,7 +36,7 @@ Ethernet 2 (intnet):
     Máscara: 255.255.255.0
     Puerta de enlace: —
     DNS: 127.0.0.1
-
+<img src="IMG/3.png" alt="3" width="600" height="auto">
 ***
 
 # 3. Estructura de OU
@@ -58,6 +58,8 @@ La organización se estructuró de forma profesional y orientada a seguridad, de
            |_Seguretat
            |_Distribucio
 
+<img src="IMG/4.png" alt="4" width="600" height="auto">
+
 Justificación:  
 La separación entre usuarios, equipos y grupos facilita el enlace de GPOs, delegación granular, y la correcta aplicación de PSO y políticas corporativas.
 
@@ -71,7 +73,7 @@ Dominio creado:
 
 Características:
 
-*   Nivel funcional: Windows Server 2016
+*   Nivel funcional: Windows Server 
 *   DNS integrado
 *   Global Catalog habilitado
 
@@ -116,11 +118,15 @@ Requisito explícito del cliente y de auditoría básica.
 
 ***
 
+<img src="IMG/6.png" alt="6" width="600" height="auto">
+
 ## 6.2 Política avanzada para Gerencia (VIP) mediante PSO
 
 Creada en:
 
     Active Directory Administrative Center -> Password Settings Container
+    
+<img src="IMG/8.png" alt="8" width="600" height="auto">
 
 Parámetros:
 
@@ -131,7 +137,8 @@ Parámetros:
 *   Complexity: Desactivada
 *   Apply directly to: Grupo **gerencia**
 
-Justificación (rúbrica nivel 4 puntos):  
+<img src="IMG/9.png" alt="9" width="600" height="auto">
+
 Todas las directrices VIP aplicadas mediante PSO, sin afectar a GPO globales.
 
 ***
@@ -188,7 +195,9 @@ Enlace:
 
 Ruta UNC:
 
-    \\SRV-DC01\software\7zip.msi
+    \\SRV-DC01\software\software\7zip.msi
+    
+<img src="IMG/18.png" alt="18" width="600" height="auto">
 
 Tipo:  
 Assigned
@@ -203,12 +212,13 @@ Enlace:
 
 Ruta UNC:
 
-    \\SRV-DC01\software\firefox.msi
+    \\SRV-DC01\software\software\firefox.msi
+    
+<img src="IMG/22.png" alt="22" width="600" height="auto">
 
 Tipo:  
 Published
-
-Cumplimiento rúbrica:  
+ 
 Firefox aparece correctamente en el Panel de Control → "Instalar desde la red".
 
 ***
@@ -218,7 +228,9 @@ Firefox aparece correctamente en el Panel de Control → "Instalar desde la red"
 ## 9.1 Carpeta compartida
 
     C:\perfils
-
+    
+<img src="IMG/33.png" alt="33" width="600" height="auto">
+<img src="IMG/34.png" alt="34" width="600" height="auto">
 Permisos compartidos:
 
 *   Authenticated Users: Lectura
