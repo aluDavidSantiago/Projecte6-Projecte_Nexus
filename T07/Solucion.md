@@ -7,25 +7,6 @@
 
 ***
 
-# ÍNDICE
-
-1.  Objetivo general
-2.  Preparación del entorno
-3.  Diseño y creación de la estructura de OUs
-4.  Implementación del dominio
-5.  Creación de usuarios y grupos
-6.  Políticas de contraseñas (Global + Gerencia mediante PSO)
-7.  GPO Bonus (seguridad proactiva corporativa)
-8.  Despliegue de software corporativo
-9.  Carpetas compartidas y perfiles móviles
-10. Redirección corporativa de Documentos
-11. Delegación administrativa (adminOU)
-12. Pruebas operativas y validación
-13. Respuesta técnica: creación de MSI a partir de EXE
-14. Conclusiones finales
-
-***
-
 # 1. Objetivo general
 
 Este documento describe la implantación completa de una infraestructura corporativa basada en Active Directory, cumpliendo los requisitos de seguridad, movilidad, gestión de software y delegación solicitados por TransLògic S.A. El informe está organizado por fases, proporcionando tanto el diseño técnico como los pasos operativos aplicados.
@@ -371,16 +352,6 @@ Se ha implementado una solución completa de Active Directory para TransLògic S
 El sistema queda preparado para auditorías, escalado y nuevas implementaciones futuras.
 
 ***
-
-# Si quieres, puedo:
-
-*   Convertir este informe en **PDF profesional**
-*   Crear versión con **portada corporativa SentinelCore**
-*   Prepararte **índice automático**
-*   Insertar **tus capturas en su lugar correcto**
-*   Formatearlo como **documento final para entregar**
-
-Solo dime:
 
 **“Quiero el PDF final”** o  
 **“Quiero que insertes mis capturas”**
