@@ -94,6 +94,8 @@ sudo apt update
 sudo apt upgrade -y
 sudo apt install nginx -y
 ```
+<img src="IMG/1.png" alt="1" width="600" height="auto">
+
 
 Verificación:
 
