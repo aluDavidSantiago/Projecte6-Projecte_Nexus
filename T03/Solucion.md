@@ -53,18 +53,15 @@ La guía está escrita en primera persona y refleja exactamente **lo que se conf
 
 Desde Windows (anfitrión o VM cliente):
 
-```powershell
+```
 ping 192.168.56.117
 ```
 
 Desde Ubuntu:
 
-```bash
+```
 ping 192.168.56.128
 ```
-
-> \[Captura: ping correcto entre cliente y servidor]
-
 ***
 
 ## 3. Preparación del entorno
@@ -73,7 +70,7 @@ ping 192.168.56.128
 
 Desde Windows:
 
-```powershell
+```
 ssh <usuario>@192.168.56.117
 ```
 
@@ -83,7 +80,7 @@ ssh <usuario>@192.168.56.117
 
 En mi caso, **Apache no estaba instalado**. Dejo los comandos que habría usado en caso de estar presente:
 
-```bash
+```
 sudo systemctl stop apache2
 sudo systemctl disable apache2
 sudo apt remove apache2 -y
@@ -92,7 +89,7 @@ sudo apt autoremove -y
 
 ### 3.3 Instalación y arranque de Nginx
 
-```bash
+```
 sudo apt update
 sudo apt upgrade -y
 sudo apt install nginx -y
@@ -100,12 +97,20 @@ sudo apt install nginx -y
 
 Verificación:
 
-```bash
+```
 systemctl status nginx
-sudo ss -tulnp | grep :80
+```
+<img src="IMG/2.png" alt="2" width="600" height="auto">
+
+```
+sudo ss -tulnp | grep nginx
 ```
 
-> \[Captura: “Welcome to nginx!” desde el cliente accediendo a `http://192.168.56.117`]
+<img src="IMG/3.png" alt="3" width="600" height="auto">
+
+`http://192.168.56.117`
+
+<img src="IMG/4.png" alt="4" width="600" height="auto">
 
 ***
 
@@ -115,68 +120,61 @@ sudo ss -tulnp | grep :80
 
 Se crearon las dos raíces web:
 
-```bash
+```
 sudo mkdir -p /var/www/nexus
 sudo mkdir -p /var/www/academia
 ```
+<img src="IMG/5.png" alt="5" width="600" height="auto">
 
 Archivos de índice iniciales:
 
-```bash
+```
 echo "<h1>Web Nexus con Nginx</h1>" | sudo tee /var/www/nexus/index.html
 echo "<h1>Web Academia con Nginx</h1>" | sudo tee /var/www/academia/index.html
 ```
 
+<img src="IMG/6.png" alt="6" width="600" height="auto">
+
 Permisos:
 
-```bash
+```
 sudo chown -R www-data:www-data /var/www/nexus
 sudo chown -R www-data:www-data /var/www/academia
 ```
+
+<img src="IMG/7.png" alt="7" width="600" height="auto">
 
 ### 4.2 Creación de server blocks
 
 Archivo: `/etc/nginx/sites-available/nexus.local`
 
-```nginx
-server {
-    listen 80;
-    server_name nexus.local;
-
-    root /var/www/nexus;
-    index index.html;
-
-    location / {
-        try_files $uri $uri/ =404;
-    }
-}
-```
+<img src="IMG/8.png" alt="8" width="600" height="auto">
 
 Archivo: `/etc/nginx/sites-available/academia.local`
 
-```nginx
-server {
-    listen 80;
-    server_name academia.local;
-
-    root /var/www/academia;
-    index index.html;
-
-    location / {
-        try_files $uri $uri/ =404;
-    }
-}
-```
+<img src="IMG/9.png" alt="9" width="600" height="auto">
 
 Activación y limpieza del default:
 
-```bash
+```
 sudo ln -s /etc/nginx/sites-available/nexus.local /etc/nginx/sites-enabled/
 sudo ln -s /etc/nginx/sites-available/academia.local /etc/nginx/sites-enabled/
+```
+
+<img src="IMG/10.png" alt="10" width="600" height="auto">
+
+```
 sudo rm /etc/nginx/sites-enabled/default
 sudo nginx -t
+```
+
+<img src="IMG/11.png" alt="11" width="600" height="auto">
+
+```
 sudo systemctl restart nginx
 ```
+
+<img src="IMG/12.png" alt="12" width="600" height="auto">
 
 ### 4.3 Resolución de nombres en el cliente Windows
 
@@ -189,13 +187,16 @@ Entradas añadidas:
     192.168.56.117   nexus.local
     192.168.56.117   academia.local
 
+<img src="IMG/13.png" alt="13" width="600" height="auto">
+
+
 Observación práctica: si el editor obliga a guardar como `.txt`, renombré como **Administrador**:
 
-```powershell
+```
 ren C:\Windows\System32\drivers\etc\hosts.txt hosts
 ```
 
-> \[Captura: acceso a `http://nexus.local` y `http://academia.local` mostrando los índices correspondientes]
+<img src="IMG/14.png" alt="14" width="600" height="auto">
 
 ***
 
@@ -214,71 +215,59 @@ Ejemplo de contenido (Nexus), escrito manualmente con `nano`:
 
 Permisos:
 
-```bash
+```
 sudo mkdir -p /var/www/nexus/errors /var/www/academia/errors
+```
+
+<img src="IMG/16.png" alt="16" width="600" height="auto">
+
+```
 sudo chown -R www-data:www-data /var/www/nexus/errors
 sudo chown -R www-data:www-data /var/www/academia/errors
 ```
 
-### 5.2 Integración en Nginx
+<img src="IMG/19.png" alt="19" width="600" height="auto">
+
+### 5.2 Pèrsonalizar archivo de error 404
+
+```
+sudo nano /var/www//nexus/errors/404.html
+```
+
+<img src="IMG/20.png" alt="20" width="600" height="auto">
+
+
+### 5.3 Integración en Nginx
 
 `/etc/nginx/sites-available/nexus.local`:
 
-```nginx
-server {
-    listen 80;
-    server_name nexus.local;
-
-    root /var/www/nexus;
-    index index.html;
-
-    error_page 404 /errors/404.html;
-
-    location /errors/ {
-        internal;
-    }
-
-    location / {
-        try_files $uri $uri/ =404;
-    }
-}
-```
+<img src="IMG/22.png" alt="22" width="600" height="auto">
 
 `/etc/nginx/sites-available/academia.local`:
 
-```nginx
-server {
-    listen 80;
-    server_name academia.local;
+<img src="IMG/21.png" alt="21" width="600" height="auto">
 
-    root /var/www/academia;
-    index index.html;
-
-    error_page 404 /errors/404.html;
-
-    location /errors/ {
-        internal;
-    }
-
-    location / {
-        try_files $uri $uri/ =404;
-    }
-}
-```
 
 Aplicación:
 
-```bash
+```
 sudo nginx -t
 sudo systemctl restart nginx
 ```
 
+<img src="IMG/23.png" alt="23" width="600" height="auto">
+<img src="IMG/24.png" alt="24" width="600" height="auto">
+
+
 Pruebas:
 
 *   `http://nexus.local/ruta-inexistente` → muestra 404 personalizado.
-*   `http://academia.local/archivo-que-no-existe` → muestra 404 personalizado.
+  
+    <img src="IMG/26.png" alt="26" width="600" height="auto">
 
-> \[Captura: 404 de Nexus y 404 de Academia]
+*   `http://academia.local/archivo-que-no-existe` → muestra 404 personalizado.
+  
+    <img src="IMG/27.png" alt="27" width="600" height="auto">
 
 ***
 
@@ -288,10 +277,17 @@ Pruebas:
 
 Se generó **un certificado por dominio**:
 
-```bash
+```
 sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/nexus.local.key -out /etc/ssl/certs/nexus.local.crt
+```
+
+<img src="IMG/28.png" alt="28" width="600" height="auto">
+
+```
 sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/academia.local.key -out /etc/ssl/certs/academia.local.crt
 ```
+
+<img src="IMG/29.png" alt="29" width="600" height="auto">
 
 Los **Common Name (CN)** usados fueron `nexus.local` y `academia.local`.
 
@@ -299,85 +295,36 @@ Permisos de las claves privadas: ya quedaron como `-rw------- root:root` (equiva
 
 Verificación:
 
-```bash
-sudo ls -l /etc/ssl/private | grep .key
-sudo ls -l /etc/ssl/certs  | grep .crt
 ```
+sudo ls -l /etc/ssl/private
+```
+
+<img src="IMG/30.png" alt="30" width="600" height="auto">
 
 ### 6.2 Configuración Nginx con SSL, redirección y HTTP/2
-
-`/etc/nginx/sites-available/nexus.local` (contenido completo final):
-
-```nginx
-# Redirección de HTTP → HTTPS
-server {
-    listen 80;
-    server_name nexus.local;
-    return 301 https://$server_name$request_uri;
-}
-
-# Servidor HTTPS con HTTP/2
-server {
-    listen 443 ssl http2;
-    server_name nexus.local;
-
-    root /var/www/nexus;
-    index index.html;
-
-    ssl_certificate /etc/ssl/certs/nexus.local.crt;
-    ssl_certificate_key /etc/ssl/private/nexus.local.key;
-
-    error_page 404 /errors/404.html;
-
-    location /errors/ {
-        internal;
-    }
-
-    location / {
-        try_files $uri $uri/ =404;
-    }
-}
 ```
-
-`/etc/nginx/sites-available/academia.local` (contenido completo final):
-
-```nginx
-# Redirección de HTTP → HTTPS
-server {
-    listen 80;
-    server_name academia.local;
-    return 301 https://$server_name$request_uri;
-}
-
-# Servidor HTTPS con HTTP/2
-server {
-    listen 443 ssl http2;
-    server_name academia.local;
-
-    root /var/www/academia;
-    index index.html;
-
-    ssl_certificate /etc/ssl/certs/academia.local.crt;
-    ssl_certificate_key /etc/ssl/private/academia.local.key;
-
-    error_page 404 /errors/404.html;
-
-    location /errors/ {
-        internal;
-    }
-
-    location / {
-        try_files $uri $uri/ =404;
-    }
-}
+sudo nano /etc/nginx/sites-available/nexus.local
 ```
+(contenido completo final):
+
+<img src="IMG/31.png" alt="31" width="600" height="auto">
+
+```
+sudo nano /etc/nginx/sites-available/academia.local
+```
+(contenido completo final):
+
+<img src="IMG/32.png" alt="32" width="600" height="auto">
 
 Aplicación y verificación:
 
-```bash
+```
 sudo nginx -t
 sudo systemctl restart nginx
 ```
+
+<img src="IMG/33.png" alt="33" width="600" height="auto">
+
 
 ### 6.3 Comportamiento esperado en navegador
 
@@ -388,34 +335,33 @@ Al acceder a `http://nexus.local` o `http://academia.local`, el navegador **redi
 
 Esto es **correcto** con certificados autofirmados en entorno de pruebas.
 
-> \[Captura: aviso de privacidad en navegador para `https://academia.local` y `https://nexus.local`]
+<img src="IMG/36.png" alt="36" width="600" height="auto">
+<img src="IMG/37.png" alt="37" width="600" height="auto">
+
+<img src="IMG/38.png" alt="38" width="600" height="auto">
+<img src="IMG/39.png" alt="39" width="600" height="auto">
 
 ### 6.4 Verificación de HTTP/2
 
 Para que el servidor Ubuntu resuelva los nombres locales, añadí entradas al `/etc/hosts` del **servidor**:
 
-```bash
-sudo nano /etc/hosts
-
-# Añadido al final:
-192.168.56.117   nexus.local
-192.168.56.117   academia.local
 ```
+sudo nano /etc/hosts
+```
+
+<img src="IMG/50.png" alt="50" width="600" height="auto">
+
 
 Pruebas HTTP/2:
 
-```bash
+```
 curl -I --http2 -k https://nexus.local
 curl -I --http2 -k https://academia.local
 ```
 
 Salida obtenida:
 
-    HTTP/2 200
-    server: nginx/1.24.0 (Ubuntu)
-    ...
-
-> \[Captura: salida de `curl -I --http2 -k` con HTTP/2 200 para ambos dominios]
+<img src="IMG/41.png" alt="41" width="600" height="auto">
 
 ***
 
