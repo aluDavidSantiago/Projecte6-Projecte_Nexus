@@ -1,58 +1,93 @@
-# projecte Nexus
 
-## Desplegament integral d'infraestructura segura per a entorns d'e-learning
+# T04: Duel de Titans — Apache vs Nginx  
+## Breu descripció
 
-![Logo del projecte Nexus](pics/logotip.png)
+En aquesta pràctica comparareu el rendiment dels servidors web **Apache** i **Nginx** sota diferents nivells de càrrega. Utilitzareu eines de benchmarking per mesurar com responen davant trànsit lleuger i situacions d’estrès.
 
-## Autor
+---
 
-Nom: [Escriu el teu nom aquí]
+## Introducció
 
-Formant grups de treball: [Escriu els noms dels membres del grup aquí]
+Fins ara heu configurat dos servidors web diferents:  
+- **Apache**, clàssic i robust  
+- **Nginx**, lleuger i ràpid  
 
-## Descripció del projecte
+Tots dos serveixen el mateix contingut web del client *Nexus*, però… **responen igual sota pressió?**
 
-Projecte Nexus vol posar en marxa una plataforma de formació E-learning pròpia, orientada a cursos per a tècnics informàtics i demana que aquesta plataforma es construeixi sobre una infraestructura de servidor eficient, sostenible i amb costos controlats.
+En aquesta pràctica adoptareu el rol d’**Auditors de Sistemes**, sotmetent els servidors a proves d’estrès des de la màquina client **Zorin OS** per determinar quin gestiona millor les connexions.
 
-Per aquest motiu, Projecte Nexus encarrega al vostre equip tècnic (vosaltres) l’estudi, desplegament i presentació d’una solució completa de servidor, adequada a les necessitats del client i al context real d’una petita o mitjana organització.
+---
 
-Al següent enllaç pots trobar l'enunciat complet del projecte [accés al projecte Nexus]()
+## Descripció de l’activitat
 
-## Instruccions (per eliminar abans de lliurar el projecte)
+- Cada alumne ha de tenir la seva màquina virtual amb Apache i Nginx instal·lats.  
+- Cal millorar el contingut web del site *nexus* perquè sembli més professional (podeu usar IA per generar-lo).  
+- Un alumne farà les proves sobre **Apache** i l’altre sobre **Nginx**.  
+- A Zorin OS instal·leu les utilitats necessàries:
 
-Un cop teniu la vostra còpia d'aquest repositori, heu de seguir els passos següents:
-
-1. **Editar aquest fitxer README.md**
-    - Incloure el vostre nom i els noms dels membres del grup.
-
-1. **Organització del repositori:**
-   - Cada activitat ha d'estar dins d'una carpeta titulada `Tasca01`, `Tasca02`, etc.
-   - Dins de cada carpeta de tasca, heu d'incloure un arxiu `README.md` amb la descripció detallada de l'activitat realitzada.
-
-```text
-
-projecte6/
-├── README.md (aquest arxiu)
-├── Tasca01/
-│   └── README.md
-├── Tasca02/
-│   └── README.md
-├── Tasca03/
-│   └── README.md
-└── ...
+```bash
+sudo apt install apache2-utils
 ```
 
-1. **Procediment de treball:**
-   - A mesura que completeu cada tasca, actualitzeu el vostre repositori local amb els canvis.
-   - Cada dia, abans de finalitzar la jornada, pugeu els canvis al  repositori remot a GitHub.
+---
 
-1. **Esborrar secció instruccions:**
-    - Un cop hàgiu completat la creació de les carpetes i actualitzat el vostre README.md, ja podeu eliminar aquesta secció d'instruccions per a una millor presentació del vostre projecte.
+## Proves
 
-## Guies Git i GitHub
+### Prova de càrrega lleugera
 
-- [Introducció a Git i GitHub](https://github.com/SMX2n/IntroGitHub)
-- [Control de versions: Git](https://github.com/SMX2n/ControlVersions)
-- [Guia GitHub Classroom](https://github.com/SMX2n/guia-github-classroom)
+Simula trànsit normal:  
+- **10 usuaris concurrents**  
+- **1000 peticions totals**
 
-Bona sort! 🚀
+Comanda:
+
+```bash
+ab -n 1000 -c 10 http://IP_SERVIDOR/
+```
+
+Anoteu per cada servidor:
+
+- Time taken for tests  
+- Transfer Rate  
+- Requests per second  
+- Time per request (mean)  
+- Completed requests  
+- Failed requests  
+
+---
+
+### Prova d’estrès
+
+Simula un pic de trànsit o un atac lleu:  
+- **100 usuaris concurrents**  
+- **10.000 peticions**
+
+Comanda:
+
+```bash
+ab -n 10000 -c 100 http://IP_SERVIDOR/
+```
+
+>  *Si algun servidor falla (errors, timeouts…), també s’ha d’anotar.*
+
+---
+
+## Taula comparativa (en Markdown)
+
+| **Mètrica**               | **Apache — prova lleugera** | **Nginx — prova lleugera** | **Apache — prova d’estrès** | **Nginx — prova d’estrès** |
+|---------------------------|------------------------------|------------------------------|------------------------------|------------------------------|
+| Time taken for test       |                              |                              |                              |                              |
+| Transfer rate             |                              |                              |                              |                              |
+| Requests per second (RPS) |                              |                              |                              |                              |
+| Time per request (mean)   |                              |                              |                              |                              |
+| Completed requests        |                              |                              |                              |                              |
+| Failed requests           |                              |                              |                              |                              |
+
+---
+
+## Material de suport
+
+J.D. Muñoz. *El comando ab*. Servicios de Red e Internet. 2017.  
+https://serviciosgs.readthedocs.io/es/latest/rendimiento/ab.html
+
+---
