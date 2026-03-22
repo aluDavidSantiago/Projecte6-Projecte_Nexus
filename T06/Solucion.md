@@ -61,7 +61,6 @@ Justificación: en WiFi, el modo Puente puede fallar. Host‑Only + NAT es estab
 
 **Snapshot inicial**: `Servidor-Inicial`.
 
-**\[Captura 1]** Ajustes de red en VirtualBox (NAT + Host‑Only) para ambas VMs.
 
 ***
 
@@ -79,24 +78,33 @@ Justificación: en WiFi, el modo Puente puede fallar. Host‑Only + NAT es estab
 *   Hostname: **ca.nexus8.test**
 *   Instalar **OpenSSH Server**.
 
-**\[Captura 2]** Pantalla de login mostrando `ca.nexus8.test`.  
 **Comprobaciones**:
 
-```bash
+```
 hostname            # ca.nexus8.test
 ip a                # Ver 10.0.2.x (NAT) y 192.168.2.17/24 (Host-Only)
 ping -c 3 google.com
 ```
 
+<img src="IMG/1.png" alt="1" width="600" height="auto">
+
 ### 4.2. Actualización y SSH
 
-```bash
+```
 sudo apt update && sudo apt upgrade -y
 sudo systemctl enable --now ssh
 sudo systemctl status ssh   # Active (running)
 ```
 
-**\[Captura 3]** `systemctl status ssh` en activo.
+<img src="IMG/2.png" alt="2" width="600" height="auto">
+
+Si ssh esta desactivado entonces: 
+```
+sudo systemctl enable ssh
+sudo systemctl start ssh
+```
+
+<img src="IMG/3.png" alt="3" width="600" height="auto">
 
 ***
 
@@ -104,57 +112,37 @@ sudo systemctl status ssh   # Active (running)
 
 ### 5.1. Estructura de la CA
 
-```bash
+```
 sudo mkdir -p /etc/ssl/CA/{certs,crl,newcerts,private}
 sudo touch /etc/ssl/CA/index.txt
 echo "C001" | sudo tee /etc/ssl/CA/serial
 sudo chmod 700 /etc/ssl/CA/private
 ```
 
+<img src="IMG/13.png" alt="13" width="600" height="auto">
+<img src="IMG/14.png" alt="14" width="600" height="auto">
 ### 5.2. Configuración de `openssl.cnf`
 
 Editar:
 
-```bash
+```
 sudo nano /etc/ssl/openssl.cnf
 ```
 
 Añadir/normalizar el bloque (sin duplicados):
 
-```ini
-[ ca ]
-default_ca = CA_default
+<img src="IMG/17.png" alt="17" width="600" height="auto">
+Prueba con: 
 
-####################################################################
-[ CA_default ]
-
-dir               = /etc/ssl/CA
-certs             = $dir/certs
-crl_dir           = $dir/crl
-new_certs_dir     = $dir/newcerts
-database          = $dir/index.txt
-serial            = $dir/serial
-
-certificate       = $dir/cacert.pem
-private_key       = $dir/private/cakey.pem
-
-crlnumber         = $dir/crlnumber
-crl               = $dir/crl.pem
-
-default_days      = 365
-default_crl_days  = 30
-default_md        = sha256
-
-x509_extensions   = usr_cert
-name_opt          = ca_default
-cert_opt          = ca_default
-
-policy            = policy_match
 ```
+grep -A20 "\[ CA:default \ ]" /etc/ssl/openssl.cnf
+```
+
+<img src="IMG/18.png" alt="18" width="600" height="auto">
 
 ### 5.3. Crear clave privada y certificado raíz (CA)
 
-```bash
+```
 sudo openssl req -new -x509 -days 3650 \
   -keyout /etc/ssl/CA/private/cakey.pem \
   -out /etc/ssl/CA/cacert.pem
@@ -170,7 +158,16 @@ sudo openssl req -new -x509 -days 3650 \
 *   Email: `admin@nexus8.test`
 *   Pass CA: `nexusCA123` (memorizada para firmar)
 
-**\[Captura 4]** `ls -l /etc/ssl/CA` mostrando `cacert.pem`, `index.txt`, `serial`, carpetas, y `private/`.
+
+<img src="IMG/19.png" alt="19" width="600" height="auto">
+
+Prueba/verifica con: 
+
+```
+ls -l /etc/ssl/CA ls -l /etc/ssl
+```
+
+<img src="IMG/20.png" alt="20" width="600" height="auto">
 
 ***
 
@@ -178,7 +175,7 @@ sudo openssl req -new -x509 -days 3650 \
 
 ### 6.1. Clave y CSR (solicitud)
 
-```bash
+```
 openssl req -new -keyout userkey.pem -out userreq.csr
 ```
 
@@ -190,22 +187,31 @@ openssl req -new -keyout userkey.pem -out userreq.csr
 *   Email: `hernandez@nexus8.test`
 *   Pass clave usuario (PFX): **`123456`**
 
+<img src="IMG/21.png" alt="21" width="600" height="auto">
+
 ### 6.2. Firmar el certificado con la CA
 
-```bash
-sudo openssl ca -in userreq.csr -out usercert.pem
-# Pass de la CA: nexusCA123
-# Responder 'y' a la firma
 ```
+sudo openssl ca -in userreq.csr -out usercert.pem
+```
+
+Pass de la CA: nexusCA123
+Responder 'y' a la firma
+
+<img src="IMG/22.png" alt="22" width="600" height="auto">
 
 ### 6.3. Exportar a PKCS#12 (para Windows)
 
-```bash
-openssl pkcs12 -export -out CertUser.pfx -inkey userkey.pem -in usercert.pem
-# Contraseña exportación: 123456
 ```
+openssl pkcs12 -export -out CertUser.pfx -inkey userkey.pem -in usercert.pem
+```
+Contraseña exportación: 123456
 
-**\[Captura 5]** `ls -l user*` y `ls -l *.pfx`.
+<img src="IMG/23.png" alt="23" width="600" height="auto">
+
+Comprovar:
+
+<img src="IMG/24.png" alt="24" width="600" height="auto">
 
 ***
 
@@ -215,21 +221,23 @@ openssl pkcs12 -export -out CertUser.pfx -inkey userkey.pem -in usercert.pem
 
 Permisos temporales:
 
-```bash
-chmod 777 /etc/ssl/CA/cacert.pem
-chmod 777 CertUser.pfx
 ```
+sudo chmod 777 /etc/ssl/CA/cacert.pem
+sudo chmod 777 CertUser.pfx
+```
+
+<img src="IMG/25.png" alt="25" width="600" height="auto">
 
 Desde **Windows (PowerShell)**:
 
-```powershell
+```
 scp usuari@192.168.2.17:/etc/ssl/CA/cacert.pem C:\Users\cliente\Desktop\
+```
+```
 scp usuari@192.168.2.17:/home/usuari/CertUser.pfx C:\Users\cliente\Desktop\
 ```
 
-**\[Captura 6]** Archivos en escritorio: `cacert.pem` y `CertUser.pfx`.
-
-> **Opcional (realista)**: Portal web simple con Apache/Nginx y enlaces a ambos ficheros.
+<img src="IMG/26.png" alt="26" width="600" height="auto">
 
 ***
 
@@ -244,38 +252,59 @@ scp usuari@192.168.2.17:/home/usuari/CertUser.pfx C:\Users\cliente\Desktop\
       Puerta de enlace: (vacío)
       DNS: (vacío)
 
+<img src="IMG/4.png" alt="4" width="600" height="auto">
+
 **Comprobación**:
 
-```powershell
+```
 ping 192.168.2.17
+```
+
+<img src="IMG/6.png" alt="6" width="600" height="auto">
+
+```
 ipconfig
 ```
+
+<img src="IMG/5.png" alt="5" width="600" height="auto">
 
 ### 8.2. Resolver el FQDN del servidor
 
 Editar `C:\Windows\System32\drivers\etc\hosts` (Bloc de notas como admin) y añadir:
 
+<img src="IMG/7.png" alt="7" width="600" height="auto">
+
     192.168.2.17   ca.nexus8.test
+
+<img src="IMG/10.png" alt="10" width="600" height="auto">
 
 **Comprobación**:
 
-```powershell
+```
 ping ca.nexus8.test
 ```
 
+<img src="IMG/11.png" alt="11" width="600" height="auto">
+
 ### 8.3. Instalar Adobe Reader (winget)
 
-```powershell
+```
 winget install Adobe.Acrobat.Reader.64-bit --accept-source-agreements --accept-package-agreements
 ```
 
+<img src="IMG/12.png" alt="12" width="600" height="auto">
+
 ### 8.4. Instalar **certificado raíz** de la CA
+
+<img src="IMG/27.png" alt="27" width="600" height="auto">
 
 *   `certmgr.msc` → **Entidades emisoras de certificados raíz de confianza → Certificados**
 *   Botón derecho → **Importar** → `cacert.pem`
 *   **Colocar en este almacén**: *raíz de confianza*.
 
-**\[Captura 7]** CA `ca.nexus8.test` visible en el almacén raíz.
+<img src="IMG/28.png" alt="28" width="600" height="auto">
+<img src="IMG/29.png" alt="29" width="600" height="auto">
+<img src="IMG/32.png" alt="32" width="600" height="auto">
 
 ### 8.5. Instalar **certificado personal** (PFX)
 
@@ -286,7 +315,9 @@ winget install Adobe.Acrobat.Reader.64-bit --accept-source-agreements --accept-p
     *   Emisor: **ca.nexus8.test**
     *   **Tiene clave privada** (icono llave)
 
-**\[Captura 8]** Certificado personal instalado.
+<img src="IMG/33.png" alt="33" width="600" height="auto">
+<img src="IMG/35.png" alt="35" width="600" height="auto">
+<img src="IMG/37.png" alt="37" width="600" height="auto">
 
 ***
 
@@ -295,6 +326,8 @@ winget install Adobe.Acrobat.Reader.64-bit --accept-source-agreements --accept-p
 ### 9.1. PDF de prueba
 
 *   Crear `Nexus-POC.pdf` (Word → Exportar a PDF, o Imprimir a PDF).
+
+<img src="IMG/40.png" alt="40" width="600" height="auto">
 
 ### 9.2. Firma digital (con certificado)
 
@@ -305,6 +338,22 @@ winget install Adobe.Acrobat.Reader.64-bit --accept-source-agreements --accept-p
 *   Introducir pass: `123456`.
 *   Guardar como `Nexus-POC-SIGNED.pdf`.
 
+<img src="IMG/41.png" alt="41" width="600" height="auto">
+
+<img src="IMG/43.png" alt="43" width="600" height="auto">
+
+Gaurdamos con el nombre correspondiente:
+
+<img src="IMG/44.png" alt="44" width="600" height="auto">
+
+Damos a Permitir:
+
+<img src="IMG/45.png" alt="45" width="600" height="auto">
+
+Luego se añadira en el cuadro seleccionado:
+
+<img src="IMG/46.png" alt="46" width="600" height="auto">
+
 ### 9.3. Verificación
 
 *   **Panel de firmas** → Comprobar:
@@ -313,53 +362,13 @@ winget install Adobe.Acrobat.Reader.64-bit --accept-source-agreements --accept-p
     *   Estado: **válida** o **validez desconocida** (por almacén interno de Adobe).
     *   *Aviso de capas*: puede aparecer, **no afecta**.
 
-**\[Captura 9]** Panel de firmas mostrando la firma aplicada.
+<img src="IMG/48.png" alt="48" width="600" height="auto">
 
 > Nota: si deseas que Adobe marque **“firma válida”** sin “identidad desconocida”, importa `cacert.pem` en **Adobe → Edición → Preferencias → Firmas → Identidades y certificados de confianza → Más… → Certificados de confianza → Importar → “Usar este certificado como raíz de confianza”**. **No es obligatorio para la práctica.**
 
 ***
 
-## 10. Fase 8 — Entregables
-
-Subir al repositorio (p. ej., `tarea-pki/`):
-
-*   `memoria.md` (esta guía + **tus capturas** en cada fase).
-*   `Nexus-POC-SIGNED.pdf` (PDF firmado).
-*   **Certificado raíz** en formato **.cer (DER)** (además del `.pem` si quieres).
-
-### 10.1. Convertir `cacert.pem` a `.cer` (DER) para Windows
-
-```bash
-openssl x509 -in /etc/ssl/CA/cacert.pem -outform der -out cacert.cer
-```
-
-Copia `cacert.cer` al repositorio.
-
-**\[Captura 10]** Confirmación de `cacert.cer` generado.
-
-**Árbol final sugerido:**
-
-    tarea-pki/
-    ├─ memoria.md
-    ├─ cacert.cer
-    └─ Nexus-POC-SIGNED.pdf
-
-***
-
-## 11. Resolución de problemas (Troubleshooting)
-
-*   **El `openssl ca` falla por `serial`** → Asegúrate de usar `C001` (no empieces por `0`).
-*   **Permisos** → `/etc/ssl/CA/private` debe ser `700`.
-*   **CN incorrecto** → La CA debe tener **CN = ca.nexus8.test**; el usuario, su nombre.
-*   **Windows no importa `.pem` en raíz** → Usar el asistente y apuntar a *raíz de confianza*; si no, convertir a `.cer` (DER).
-*   **Adobe: identidad desconocida** → Importar la CA en Adobe (opcional).
-*   **Bridge no funciona en WiFi** → Usar **Host‑Only + NAT** como en esta guía.
-*   **NAT sin Internet** → Revisar Adaptador 1 en NAT y `ping 8.8.8.8`.
-*   **El cliente no resuelve el FQDN** → Revisar `hosts` en Windows.
-
-***
-
-## 12. Diferencias Clave: **Clave Pública vs Clave Privada**
+## 10 NOTA:  Diferencias Clave: **Clave Pública vs Clave Privada**
 
 *   **Clave Privada**
     *   Secreta. Solo la posee el titular (CA o usuario).
@@ -380,61 +389,10 @@ En este proceso:
 
 ***
 
-## 13. Evidencias (capturas que añadí)
 
-1.  **VirtualBox**: NAT + Host‑Only en ambas VMs.
-2.  **Login Ubuntu** `ca.nexus8.test`.
-3.  `systemctl status ssh` activo.
-4.  Estructura `/etc/ssl/CA` con `cacert.pem` y `private/`.
-5.  Archivos `userkey.pem`, `userreq.csr`, `usercert.pem`, `CertUser.pfx`.
-6.  Escritorio Windows con `cacert.pem` y `CertUser.pfx`.
-7.  CA instalada en **raíz de confianza** (certmgr.msc).
-8.  Certificado personal en **Personal → Certificados**.
-9.  Panel de firmas de Adobe en `Nexus-POC-SIGNED.pdf`.
-10. `cacert.cer` generado (DER).
-
-> Inserta tus capturas como:
->
-> ```markdown
-> ./img/capturaX.png
-> ```
-
-***
-
-## 14. Conclusión
+## 11. Conclusión
 
 Se ha desplegado una **PKI corporativa** con **CA interna** en Ubuntu, se ha emitido un certificado de usuario, instalado en Windows 11 y usado para **firmar digitalmente** PDFs con **Adobe Acrobat Reader**.  
 La solución cumple los objetivos de **integridad, autenticidad y no repudio** en un entorno corporativo controlado.
 
 ***
-
-### Anexo A — Comandos rápidos (cheatsheet)
-
-```bash
-# Estructura CA
-sudo mkdir -p /etc/ssl/CA/{certs,crl,newcerts,private}
-sudo touch /etc/ssl/CA/index.txt
-echo "C001" | sudo tee /etc/ssl/CA/serial
-sudo chmod 700 /etc/ssl/CA/private
-
-# CA raíz
-sudo openssl req -new -x509 -days 3650 \
-  -keyout /etc/ssl/CA/private/cakey.pem \
-  -out /etc/ssl/CA/cacert.pem
-
-# Usuario
-openssl req -new -keyout userkey.pem -out userreq.csr
-sudo openssl ca -in userreq.csr -out usercert.pem
-openssl pkcs12 -export -out CertUser.pfx -inkey userkey.pem -in usercert.pem
-
-# Copia a Windows (PowerShell)
-scp usuari@192.168.2.17:/etc/ssl/CA/cacert.pem C:\Users\cliente\Desktop\
-scp usuari@192.168.2.17:/home/usuari/CertUser.pfx C:\Users\cliente\Desktop\
-
-# Convertir a DER (.cer)
-openssl x509 -in /etc/ssl/CA/cacert.pem -outform der -out cacert.cer
-```
-
-***
-
-¿Quieres que te entregue este `memoria.md` como archivo y una **plantilla de carpeta** con `/img` ya lista para que pegues tus capturas? Puedo generarlo y pasártelo.
