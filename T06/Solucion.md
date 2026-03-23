@@ -2,8 +2,8 @@
 
 **Autores**:
 
-*   **Administrador (Servidor Ubuntu)**: *S. Moreno* (simulado por S. Hernández)
-*   **Cliente (Windows 11)**: *S. Hernández*
+*   **Administrador (Servidor Ubuntu)**: *Santiago. Moreno* 
+*   **Cliente (Windows 11)**: *Santiago. Hernández*
 
 **Entorno**: VirtualBox (NAT + Host‑Only)
 
