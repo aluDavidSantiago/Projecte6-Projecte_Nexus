@@ -19,7 +19,7 @@
 
 ***
 
-# **ANÁLISIS RÁPIDO 
+# ANÁLISIS RÁPIDO 
 *   **Nginx** es más rápido en TODAS las métricas.
 *   En estrés, Nginx aguanta **casi 3 veces más RPS** que Apache.
 *   Apache sufre más latencia y baja más el rendimiento al aumentar la concurrencia.
