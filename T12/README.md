@@ -1,58 +1,67 @@
-# projecte Nexus
 
-## Desplegament integral d'infraestructura segura per a entorns d'e-learning
 
-![Logo del projecte Nexus](pics/logotip.png)
+# T12: Curs Moodle “Serà rendible el meu futur negoci?”**
 
-## Autor
+## **Breu descripció**
+Crear un curs de Moodle que doni resposta als emprenedors que estiguin creant la seva empresa **“Serà rendible el meu futur negoci?”**  
 
-Nom: [Escriu el teu nom aquí]
+Per poder respondre aquesta pregunta de manera argumentada, el curs Moodle ha d’oferir aprenentatges sobre:
 
-Formant grups de treball: [Escriu els noms dels membres del grup aquí]
+- **Pla de finançament específic**  
+- **Compte de Pèrdues i Guanys**  
+- **Balanç**  
+- **Punt Mort**
 
-## Descripció del projecte
+Les informacions base per aquest curs es troben al PDF penjat a la matèria d’Ocupabilitat 2, així com a les explicacions de la professora a l’aula.  
 
-Projecte Nexus vol posar en marxa una plataforma de formació E-learning pròpia, orientada a cursos per a tècnics informàtics i demana que aquesta plataforma es construeixi sobre una infraestructura de servidor eficient, sostenible i amb costos controlats.
+L’estructura del curs ha de tenir aquestes 4 parts. La tasca té una durada de **4 setmanes** i cada setmana rebreu indicacions exactes per seguir cada part del curs.  
 
-Per aquest motiu, Projecte Nexus encarrega al vostre equip tècnic (vosaltres) l’estudi, desplegament i presentació d’una solució completa de servidor, adequada a les necessitats del client i al context real d’una petita o mitjana organització.
+El producte final d'aquest curs de Moodle ha de ser un **vídeo fet amb IA** on s’expliqui el més important d'aquests quatre apartats.
 
-Al següent enllaç pots trobar l'enunciat complet del projecte [accés al projecte Nexus]()
+---
 
-## Instruccions (per eliminar abans de lliurar el projecte)
+# **1. Pla de finançament específic**
+Heu d’explicar:
 
-Un cop teniu la vostra còpia d'aquest repositori, heu de seguir els passos següents:
+- Les diferents fonts de finançament  
+- Les seves característiques principals  
+- Avantatges  
+- Inconvenients  
+- Riscos  
+- Recomanacions  
+- Consells  
 
-1. **Editar aquest fitxer README.md**
-    - Incloure el vostre nom i els noms dels membres del grup.
+---
 
-1. **Organització del repositori:**
-   - Cada activitat ha d'estar dins d'una carpeta titulada `Tasca01`, `Tasca02`, etc.
-   - Dins de cada carpeta de tasca, heu d'incloure un arxiu `README.md` amb la descripció detallada de l'activitat realitzada.
+# **2. Compte de Pèrdues i Guanys**
+Cal descriure:
 
-```text
+- Què és  
+- Per què serveix  
+- Normes per confeccionar-la  
+- Com interpretar els seus resultats  
+- Posar **dos exemples reals** dels exercicis del dossier  
 
-projecte6/
-├── README.md (aquest arxiu)
-├── Tasca01/
-│   └── README.md
-├── Tasca02/
-│   └── README.md
-├── Tasca03/
-│   └── README.md
-└── ...
-```
+---
 
-1. **Procediment de treball:**
-   - A mesura que completeu cada tasca, actualitzeu el vostre repositori local amb els canvis.
-   - Cada dia, abans de finalitzar la jornada, pugeu els canvis al  repositori remot a GitHub.
+# **3. Balanç**
+Heu de formar els usuaris del curs en:
 
-1. **Esborrar secció instruccions:**
-    - Un cop hàgiu completat la creació de les carpetes i actualitzat el vostre README.md, ja podeu eliminar aquesta secció d'instruccions per a una millor presentació del vostre projecte.
+- Nocions bàsiques sobre el balanç  
+- La seva estructura  
+- Les diferents partides  
+- El balanç provisional i final  
+- Les diferents possibles situacions patrimonials  
+- Posar **dos exemples reals** dels exercicis del dossier  
 
-## Guies Git i GitHub
+---
 
-- [Introducció a Git i GitHub](https://github.com/SMX2n/IntroGitHub)
-- [Control de versions: Git](https://github.com/SMX2n/ControlVersions)
-- [Guia GitHub Classroom](https://github.com/SMX2n/guia-github-classroom)
+# **4. Punt Mort**
+Cal explicar:
 
-Bona sort! 🚀
+- Què és  
+- Com es calcula  
+- Com s’interpreten els seus resultats  
+- La seva representació gràfica  
+- Posar **dos exemples reals** dels exercicis del dossier  
+
