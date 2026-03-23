@@ -1,6 +1,6 @@
  **TAULA COMPARATIVA COMPLETA – T04: Apache vs Nginx**
 
-```
+
 # T04 – Duel de Titans: Apache vs Nginx  
 ## Taula comparativa de rendiment
 
@@ -12,7 +12,7 @@
 | Time per request (mean)  | 9.832 ms                | 7.135 ms              | 28.284 ms              | 10.443 ms              |
 | Completed requests       | 1000                   | 1000                  | 10000                  | 10000                  |
 | Failed requests          | 0                      | 0                     | 0                      | 0                      |
-```
+
 
 **Alumnes:** Santiago Hernández, Santiago Moreno  
 
