@@ -1,7 +1,4 @@
-Aquí tens **la guia definitiva**, **sense emojis**, **extremadament clara**, **pas a pas**, i **pensada perquè fins i tot una persona amb zero experiència la pugui seguir**.  
-Aquesta guia està dissenyada per superar un examen: és precisa, estructurada i contempla errors i solucions.
 
-***
 
 # GUIA COMPLETA DE VIGILÀNCIA I AUDITORIA DE SISTEMES
 
@@ -209,11 +206,3 @@ L’identificador d’error d’inici de sessió fallit és:
     *   L’Event ID dels inicis de sessió fallits és **4625**.
 
 ***
-
-Si vols, puc generar:
-
-*   Una **plantilla d’informe llesta per entregar**.
-*   Un **resum ultra curt per estudiar**.
-*   Un **model de captures fictícies** per entendre com han de quedar.
-
-Només demana-ho.
