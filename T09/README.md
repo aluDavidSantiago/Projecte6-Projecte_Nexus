@@ -1,58 +1,125 @@
-# projecte Nexus
+**T09 – Estimació temporal i planificació professional del desplegament IT**
 
-## Desplegament integral d'infraestructura segura per a entorns d'e-learning
+## Autoria
 
-![Logo del projecte Nexus](pics/logotip.png)
+*   **Santiago Hernandez**
+*   **Santiago Moreno**  
+    CFGM Sistemes Microinformàtics i Xarxes (SMX2)
 
-## Autor
+***
 
-Nom: [Escriu el teu nom aquí]
+## 1. Objectiu del projecte
 
-Formant grups de treball: [Escriu els noms dels membres del grup aquí]
+L’objectiu d’aquest projecte és planificar de manera professional el desplegament d’una infraestructura IT per a l’empresa **FoodLogístics S.A.**, superant un model reactiu i poc estructurat.  
+El focus no és únicament definir què es farà, sinó **quan, en quin ordre, amb quines dependències, amb quins riscos i amb quina distribució temporal realista**.
 
-## Descripció del projecte
+Aquest lliurament correspon a la tasca **T09 – Estimació temporal del projecte**, i posa èmfasi en la capacitat de planificació, anticipació i organització pròpia d’un equip IT professional.
 
-Projecte Nexus vol posar en marxa una plataforma de formació E-learning pròpia, orientada a cursos per a tècnics informàtics i demana que aquesta plataforma es construeixi sobre una infraestructura de servidor eficient, sostenible i amb costos controlats.
+***
 
-Per aquest motiu, Projecte Nexus encarrega al vostre equip tècnic (vosaltres) l’estudi, desplegament i presentació d’una solució completa de servidor, adequada a les necessitats del client i al context real d’una petita o mitjana organització.
+## 2. Enfocament de planificació
 
-Al següent enllaç pots trobar l'enunciat complet del projecte [accés al projecte Nexus]()
+La planificació s’ha dividit en tasques reals i coherents, identificades com **T01–T08**, basades en les necessitats del client i en l’anàlisi prèvia del projecte.
 
-## Instruccions (per eliminar abans de lliurar el projecte)
+S’ha evitat una planificació lineal simplificada, apostant per:
 
-Un cop teniu la vostra còpia d'aquest repositori, heu de seguir els passos següents:
+*   identificació clara de dependències,
+*   execució de tasques en paral·lel quan és viable,
+*   detecció del camí crític,
+*   inclusió d’una tasca transversal de documentació,
+*   estimacions realistes basades en l’entorn lectiu real.
 
-1. **Editar aquest fitxer README.md**
-    - Incloure el vostre nom i els noms dels membres del grup.
+El calendari utilitzat correspon a **dies reals de classe**, no a dates teòriques, fet que garanteix coherència entre el diagrama i el desenvolupament real del projecte.
 
-1. **Organització del repositori:**
-   - Cada activitat ha d'estar dins d'una carpeta titulada `Tasca01`, `Tasca02`, etc.
-   - Dins de cada carpeta de tasca, heu d'incloure un arxiu `README.md` amb la descripció detallada de l'activitat realitzada.
+***
 
-```text
+## 3. Tasques del projecte
 
-projecte6/
-├── README.md (aquest arxiu)
-├── Tasca01/
-│   └── README.md
-├── Tasca02/
-│   └── README.md
-├── Tasca03/
-│   └── README.md
-└── ...
-```
+Les tasques incloses al diagrama de Gantt són:
 
-1. **Procediment de treball:**
-   - A mesura que completeu cada tasca, actualitzeu el vostre repositori local amb els canvis.
-   - Cada dia, abans de finalitzar la jornada, pugeu els canvis al  repositori remot a GitHub.
+*   **T01** – Anàlisi del sector i competència (estratègica)
+*   **T02** – Anàlisi de necessitats del client (bloquejant)
+*   **T03** – Disseny de la solució IT (crítica)
+*   **T04** – Infraestructura (xarxa i servidors) (crítica)
+*   **T05** – Seguretat i sistemes de backups (crítica)
+*   **T06** – Preparació de l’entorn cloud / on‑prem (tècnica)
+*   **T07** – Documentació tècnica i d’usuari (transversal)
+*   **T08** – Validació final amb el client (final)
 
-1. **Esborrar secció instruccions:**
-    - Un cop hàgiu completat la creació de les carpetes i actualitzat el vostre README.md, ja podeu eliminar aquesta secció d'instruccions per a una millor presentació del vostre projecte.
+***
 
-## Guies Git i GitHub
+## 4. Dependències i camí crític
 
-- [Introducció a Git i GitHub](https://github.com/SMX2n/IntroGitHub)
-- [Control de versions: Git](https://github.com/SMX2n/ControlVersions)
-- [Guia GitHub Classroom](https://github.com/SMX2n/guia-github-classroom)
+El diagrama identifica clarament les dependències obligatòries entre tasques, representades tant de manera lògica com visual mitjançant fletxes:
 
-Bona sort! 🚀
+*   T02 depèn de T01
+*   T03 depèn de T02
+*   T04 i T05 depenen de T03
+*   T06 depèn de T04 i T05
+*   T08 depèn de totes les tasques anteriors
+
+### Camí crític del projecte
+
+    T01 → T02 → T03 → T04 / T05 → T06 → T08
+
+Qualsevol retard en una d’aquestes tasques impactaria directament en la data final del projecte.  
+La documentació (T07) es considera **transversal** i no forma part del camí crític, ja que pot avançar-se o finalitzar-se sense bloquejar la resta del projecte.
+
+***
+
+## 5. Paral·lelisme i criteri professional
+
+Les tasques **T04 (Infraestructura)** i **T05 (Seguretat i backups)** s’executen en paral·lel perquè, tot i partir del mateix disseny base, poden ser implementades per tècnics diferents sense interferències directes.
+
+La documentació (T07) s’inicia un cop el disseny està definit, permetent:
+
+*   reduir errors en fases posteriors,
+*   garantir traçabilitat,
+*   millorar la qualitat global del projecte.
+
+Aquest enfocament reflecteix un criteri professional i realista, propi d’un projecte IT real.
+
+***
+
+## 6. Estimació temporal i realisme
+
+Les duracions assignades a cada tasca tenen en compte:
+
+*   temps de comprensió i anàlisi,
+*   coordinació entre membres de l’equip,
+*   proves i validacions,
+*   correcció d’errors,
+*   interrupcions pròpies de l’entorn lectiu.
+
+Aquesta estimació evita una visió excessivament optimista i permet una planificació sostenible.  
+L’ús d’intel·ligència artificial s’ha fet com a suport puntual, però totes les decisions han estat **analitzades i reinterpretades pel grup**, aplicant criteri propi.
+
+***
+
+## 7. Diagrama de Gantt
+
+El diagrama de Gantt s’ha implementat en format **HTML amb representació visual avançada**, similar a eines empresarials de gestió de projectes.
+
+El diagrama mostra:
+
+*   tasques i durades,
+*   paral·lelismes,
+*   dependències mitjançant fletxes visuals,
+*   classificació de tasques per tipus mitjançant color,
+*   coherència total amb la planificació descrita en aquest document.
+
+No es tracta només d’una representació gràfica, sinó d’una eina de control i comprensió del projecte.
+
+***
+
+## 8. Conclusions
+
+Aquest lliurament demostra:
+
+*   capacitat de planificar de manera professional,
+*   comprensió real de dependències i colls d’ampolla,
+*   estimacions temporals realistes,
+*   ús adequat de la documentació com a element clau,
+*   criteri propi en la presa de decisions.
+
+El resultat diferencia clarament un treball tècnic superficial d’una **planificació pròpia d’un equip IT professional**.
