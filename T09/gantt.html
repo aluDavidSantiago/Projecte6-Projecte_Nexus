@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Gantt Profesional – FoodLogístics S.A.</title>
+
+<style>
+body {
+  font-family: "Segoe UI", Arial, sans-serif;
+  background: #f4f6f8;
+  margin: 20px;
+}
+
+h1, h2 {
+  text-align: center;
+  margin: 4px;
+}
+
+.container {
+  position: relative;
+  background: white;
+  border: 1px solid #ccc;
+  padding: 10px;
+  overflow-x: auto;
+}
+
+/* ---------- TABLA ---------- */
+table {
+  border-collapse: collapse;
+  min-width: 1400px;
+}
+
+th, td {
+  border: 1px solid #cfd3d7;
+  padding: 6px;
+  text-align: center;
+  font-size: 12px;
+}
+
+th {
+  background: #1f3a5f;
+  color: white;
+}
+
+.task {
+  text-align: left;
+  background: #ececec;
+  font-weight: bold;
+  min-width: 320px;
+}
+
+/* ---------- BARRAS ---------- */
+.bar {
+  height: 18px;
+  border-radius: 4px;
+  position: relative;
+}
+
+.estrategica { background: #2ecc71; }
+.critica     { background: #e74c3c; }
+.tecnica     { background: #f1c40f; }
+.transversal { background: #3498db; }
+
+/* ---------- SVG (FLECHAS) ---------- */
+svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+}
+
+.footer {
+  margin-top: 12px;
+  font-size: 13px;
+  text-align: center;
+}
+</style>
+</head>
+
+<body>
+
+<h1>Diagrama de Gantt – FoodLogístics S.A.</h1>
+<h2>T09 · Planificació professional del desplegament IT</h2>
+
+<div class="container" id="ganttContainer">
+
+<svg id="arrows"></svg>
+
+<table id="ganttTable">
+<thead>
+<tr>
+  <th>Tasca</th>
+  <th>07/04</th><th>08/04</th><th>09/04</th><th>10/04</th>
+  <th>14/04</th><th>15/04</th><th>16/04</th>
+  <th>20/04</th><th>21/04</th><th>22/04</th><th>23/04</th>
+  <th>27/04</th><th>28/04</th><th>29/04</th><th>04/05</th>
+</tr>
+</thead>
+
+<tbody>
+
+<tr id="T01">
+<td class="task">T01 – Anàlisi sector i competència</td>
+<td colspan="2"><div class="bar estrategica"></div></td>
+<td colspan="13"></td>
+</tr>
+
+<tr id="T02">
+<td class="task">T02 – Anàlisi necessitats client</td>
+<td></td>
+<td colspan="2"><div class="bar critica"></div></td>
+<td colspan="12"></td>
+</tr>
+
+<tr id="T03">
+<td class="task">T03 – Disseny solució IT</td>
+<td colspan="2"></td>
+<td colspan="3"><div class="bar critica"></div></td>
+<td colspan="10"></td>
+</tr>
+
+<tr id="T04">
+<td class="task">T04 – Infraestructura (xarxa / servidors)</td>
+<td colspan="4"></td>
+<td colspan="4"><div class="bar critica"></div></td>
+<td colspan="7"></td>
+</tr>
+
+<tr id="T05">
+<td class="task">T05 – Seguretat i backups</td>
+<td colspan="4"></td>
+<td colspan="3"><div class="bar critica"></div></td>
+<td colspan="8"></td>
+</tr>
+
+<tr id="T06">
+<td class="task">T06 – Preparació entorn cloud/on‑prem</td>
+<td colspan="6"></td>
+<td colspan="4"><div class="bar tecnica"></div></td>
+<td colspan="5"></td>
+</tr>
+
+<tr id="T07">
+<td class="task">T07 – Documentació tècnica i usuari</td>
+<td colspan="3"></td>
+<td colspan="8"><div class="bar transversal"></div></td>
+<td colspan="4"></td>
+</tr>
+
+<tr id="T08">
+<td class="task">T08 – Validació final amb el client</td>
+<td colspan="9"></td>
+<td colspan="2"><div class="bar estrategica"></div></td>
+<td colspan="4"></td>
+</tr>
+
+</tbody>
+</table>
+</div>
+
+<div class="footer">
+Projecte realitzat per <strong>Santiago Hernandez</strong> i <strong>Santiago Moreno</strong> · CFGM SMX2
+</div>
+
+<script>
+const arrowsSvg = document.getElementById("arrows");
+const container = document.getElementById("ganttContainer");
+
+function drawArrow(fromId, toId) {
+  const from = document.querySelector(`#${fromId} .bar`);
+  const to = document.querySelector(`#${toId} .bar`);
+  if (!from || !to) return;
+
+  const cRect = container.getBoundingClientRect();
+  const fRect = from.getBoundingClientRect();
+  const tRect = to.getBoundingClientRect();
+
+  const x1 = fRect.right - cRect.left;
+  const y1 = fRect.top + fRect.height / 2 - cRect.top;
+  const x2 = tRect.left - cRect.left;
+  const y2 = tRect.top + tRect.height / 2 - cRect.top;
+
+  const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+  path.setAttribute("d", `M${x1},${y1} L${x2-8},${y2}`);
+  path.setAttribute("stroke", "#333");
+  path.setAttribute("fill", "none");
+  path.setAttribute("stroke-width", "2");
+
+  const arrow = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
+  arrow.setAttribute("points", `${x2-8},${y2-5} ${x2},${y2} ${x2-8},${y2+5}`);
+  arrow.setAttribute("fill", "#333");
+
+  arrowsSvg.appendChild(path);
+  arrowsSvg.appendChild(arrow);
+}
+
+function renderDependencies() {
+  arrowsSvg.setAttribute("width", container.scrollWidth);
+  arrowsSvg.setAttribute("height", container.scrollHeight);
+
+  drawArrow("T01", "T02");
+  drawArrow("T02", "T03");
+  drawArrow("T03", "T04");
+  drawArrow("T03", "T05");
+  drawArrow("T04", "T06");
+  drawArrow("T05", "T06");
+  drawArrow("T06", "T08");
+}
+
+window.onload = renderDependencies;
+window.onresize = renderDependencies;
+</script>
+
+</body>
+</html>
