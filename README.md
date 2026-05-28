@@ -1,4 +1,5 @@
-# Projecte Nexus
+<h1 align="center">Proyecto 6 - Projecte_Nexus</h1>
+
 ## Despliegue integral de infraestructura segura para entornos de E-learning  
 
 <p align="center">
