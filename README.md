@@ -1,58 +1,186 @@
-# projecte Nexus
+# Projecte Nexus
+## Despliegue integral de infraestructura segura para entornos de E-learning  
 
-## Desplegament integral d'infraestructura segura per a entorns d'e-learning
+<p align="center">
+  <img src="pics/logotip.png" width="200">
+</p>
 
-![Logo del projecte Nexus](pics/logotip.png)
+<p align="center">
+  <img src="https://img.shields.io/badge/Ciclo-SMX2-blue">
+  <img src="https://img.shields.io/badge/Proyecto-Intermodular-red">
+  <img src="https://img.shields.io/badge/Tipo-E--Learning-green">
+  <img src="https://img.shields.io/badge/Metodologia-Design%20Thinking-purple">
+  <img src="https://img.shields.io/badge/Duracion-4%20semanas-orange">
+</p>
 
-## Autor
+---
 
-Nom: [Escriu el teu nom aquí]
+## 1. Introducción
 
-Formant grups de treball: [Escriu els noms dels membres del grup aquí]
+Este proyecto forma parte del ciclo formativo de Sistemas Microinformáticos y Redes (SMX2) y simula un entorno profesional real donde se plantea el despliegue de una solución tecnológica completa.
 
-## Descripció del projecte
+El objetivo es pasar de un enfoque puramente técnico a una visión profesional integrando:
+- Infraestructura  
+- Seguridad  
+- Servicios  
+- Viabilidad  
+- Comunicación con el cliente  
 
-Projecte Nexus vol posar en marxa una plataforma de formació E-learning pròpia, orientada a cursos per a tècnics informàtics i demana que aquesta plataforma es construeixi sobre una infraestructura de servidor eficient, sostenible i amb costos controlats.
+---
 
-Per aquest motiu, Projecte Nexus encarrega al vostre equip tècnic (vosaltres) l’estudi, desplegament i presentació d’una solució completa de servidor, adequada a les necessitats del client i al context real d’una petita o mitjana organització.
+## 2. Contexto del proyecto
 
-Al següent enllaç pots trobar l'enunciat complet del projecte [accés al projecte Nexus](https://docs.google.com/document/d/1dyntLKYDdo1CpgM7ZmHbXXD5VhMYAe9-/edit?usp=sharing&ouid=104728425662496836733&rtpof=true&sd=true)
+Projecte Nexus quiere crear una plataforma de formación E-learning dirigida a técnicos informáticos.
 
-## Instruccions (per eliminar abans de lliurar el projecte)
+Para lograrlo, el cliente necesita una infraestructura:
+- eficiente  
+- segura  
+- escalable  
+- sostenible  
+- con costes controlados  
 
-Un cop teniu la vostra còpia d'aquest repositori, heu de seguir els passos següents:
+El equipo técnico (nosotros) tiene el encargo de diseñar, implementar y justificar esta solución.
 
-1. **Editar aquest fitxer README.md**
-    - Incloure el vostre nom i els noms dels membres del grup.
+---
 
-1. **Organització del repositori:**
-   - Cada activitat ha d'estar dins d'una carpeta titulada `Tasca01`, `Tasca02`, etc.
-   - Dins de cada carpeta de tasca, heu d'incloure un arxiu `README.md` amb la descripció detallada de l'activitat realitzada.
+## 3. Objetivos
 
-```text
+- Desplegar servidores web (Apache y Nginx)  
+- Comparar tecnologías reales  
+- Implementar medidas de seguridad  
+- Desplegar plataformas LMS (Moodle y Canvas)  
+- Analizar viabilidad técnica y económica  
+- Documentar y presentar una solución profesional  
 
-projecte6/
-├── README.md (aquest arxiu)
-├── Tasca01/
-│   └── README.md
-├── Tasca02/
-│   └── README.md
-├── Tasca03/
-│   └── README.md
-└── ...
-```
+---
 
-1. **Procediment de treball:**
-   - A mesura que completeu cada tasca, actualitzeu el vostre repositori local amb els canvis.
-   - Cada dia, abans de finalitzar la jornada, pugeu els canvis al  repositori remot a GitHub.
+## 4. Áreas de trabajo
 
-1. **Esborrar secció instruccions:**
-    - Un cop hàgiu completat la creació de les carpetes i actualitzat el vostre README.md, ja podeu eliminar aquesta secció d'instruccions per a una millor presentació del vostre projecte.
+| Área | Contenido |
+|------|----------|
+| Sistemas | Servidores Linux y Windows |
+| Redes | Configuración y conectividad |
+| Web | Apache y Nginx |
+| Seguridad | HTTPS, PKI y auditoría |
+| Aplicaciones | Moodle y Canvas |
+| Negocio | Costes y viabilidad |
+| Sostenibilidad | Green IT |
 
-## Guies Git i GitHub
+---
 
-- [Introducció a Git i GitHub](https://github.com/SMX2n/IntroGitHub)
-- [Control de versions: Git](https://github.com/SMX2n/ControlVersions)
-- [Guia GitHub Classroom](https://github.com/SMX2n/guia-github-classroom)
+## 5. Metodología
 
-Bona sort! 🚀
+Se utiliza una combinación de:
+
+- **Design Thinking** → análisis y toma de decisiones  
+- **Trabajo por fases** → implementación progresiva  
+- **GitHub** → control de versiones  
+- **Kanban** → organización de tareas  
+
+---
+
+## 6. Tareas desarrolladas
+
+- T01 – Funcionamiento del protocolo HTTP  
+- T02 – Configuración del servidor Apache  
+- T03 – Migración a Nginx  
+- T04 – Benchmark Apache vs Nginx  
+- T05 – Criptografía (cifrado y hashing)  
+- T06 – Implementación de PKI  
+- T07 – Active Directory y GPO  
+- T08 – Monitorización y auditoría  
+- T09 – Plataforma Moodle  
+- T10 – Plataforma Canvas  
+- T11 – Comparativa Moodle vs Canvas  
+- T12–T13 – Creación de cursos  
+
+---
+
+## 7. Infraestructura
+
+### 7.1 Servidores web
+
+<p align="center">
+  <img src="https://www.digitalocean.com/api/static-content/v1/images?src=https%3A%2F%2Fcommunity-cdn-digitalocean-com.global.ssl.fastly.net%2FrdBa5bZujAqPzQxkDEiYeZRN&width=828" width="550">
+</p>
+
+- Apache → flexible y ampliamente utilizado  
+- Nginx → alto rendimiento y eficiencia  
+
+---
+
+### 7.2 Plataformas E-learning
+
+<p align="center">
+  <img src="https://www.tituslearning.com/wp-content/uploads/2021/09/Canvas.jpg" width="550">
+</p>
+
+---
+
+## 8. Seguridad
+
+- Certificados SSL (HTTPS)  
+- Cifrado de archivos (VeraCrypt)  
+- Hashing (SHA-256)  
+- PKI (infraestructura de clave pública)  
+- Auditoría del sistema  
+
+---
+
+## 9. Comparativas
+
+- Apache vs Nginx (rendimiento y escalabilidad)  
+- Moodle vs Canvas (usabilidad y funcionalidad)  
+
+Estas comparativas permiten tomar decisiones técnicas basadas en datos reales.
+
+---
+
+## 10. Viabilidad
+
+- Análisis de VPS en la UE  
+- Costes de implantación  
+- Costes de mantenimiento  
+- Escalabilidad del sistema  
+
+---
+
+## 11. Sostenibilidad
+
+Aplicación de criterios Green IT:
+
+- Reducción del consumo energético  
+- Optimización de recursos  
+- Infraestructura eficiente  
+- Uso responsable de la tecnología  
+
+---
+
+## 12. Productos finales
+
+| Código | Producto | Descripción |
+|--------|----------|------------|
+| P01 | Memoria técnica | Propuesta completa |
+| P02 | Presentación | Defensa del proyecto |
+| P03 | Repositorio | Documentación y desarrollo |
+
+---
+
+## 13. Autor
+
+**Santiago Hernández**  
+CFGM Sistemas Microinformáticos y Redes (SMX2)  
+Escola Pia Mataró  
+
+---
+
+## 14. Conclusión
+
+Este proyecto representa un entorno profesional real donde se combinan:
+
+- conocimientos técnicos  
+- toma de decisiones  
+- análisis de sistemas  
+- comunicación profesional  
+
+Permite dar el paso de “configurar sistemas” a “crear soluciones IT para clientes”.
